@@ -23,6 +23,7 @@ public class Main {
         String closingDate = "17.09.2021";
         String closingQuantity = "21";
 
+
         addTransactionRow();
         pause(250);
         for (int i = 0; i < 3; i++) {
