@@ -17,6 +17,8 @@ public class Main {
         ChromeOptions chromeOptions = setChromeOptions(portNumber);
         webDriver = new ChromeDriver(chromeOptions);
 
+
+
         String id = "US02361E1082";
         String description = "ALLIED HEALTHCARE PRODUCTS";
         String country = "Ameerika";
@@ -86,7 +88,7 @@ public class Main {
         );
     }
 
-    public static void pause(int milliSeconds) {
+    private static void pause(int milliSeconds) {
         try {
             Thread.sleep(milliSeconds);
         } catch (InterruptedException e) {
@@ -165,6 +167,4 @@ public class Main {
     private static void cancelTransactionRow() {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-cancel-button\"]")).click();
     }
-
-
 }
