@@ -23,45 +23,45 @@ public class Main {
         List<Entry> entries = Entry.getEntriesFromExcelSheet(Excel.pathName2021);
 
         addTransactionRow();
-        pause(250);
+        pause_500();
         for (Entry entry : entries) {
 
             insertId(entry);
-            pause(250);
+            pause_500();
 
             insertDescription(entry);
-            pause(250);
+            pause_500();
 
             insertCountry(entry);
-            pause(250);
+            pause_500();
 
             insertAssetCategory();
-            pause(250);
+            pause_500();
 
             insertClosingDate(entry);
-            pause(250);
+            pause_500();
 
             insertClosingQuantity(entry);
-            pause(250);
+            pause_500();
 
             insertBuyingCost(entry);
-            pause(250);
+            pause_500();
 
             insertSellingFee(entry);
-            pause(250);
+            pause_500();
 
             insertSellingCost(entry);
-            pause(250);
+            pause_500();
 
             insertPaidIncomeTax(entry);
-            pause(250);
+            pause_500();
 
             saveTransactionRow();
-            pause(1000);
+            pause_500();
         }
 
         cancelTransactionRow();
-        pause(250);
+        pause_500();
         webDriver.quit();
     }
 
@@ -84,9 +84,9 @@ public class Main {
         );
     }
 
-    private static void pause(int milliSeconds) {
+    private static void pause_500() {
         try {
-            Thread.sleep(milliSeconds);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             System.err.format("IOException: %s%n", e);
         }
