@@ -29,7 +29,7 @@ public class Main {
             insertId(entry.id);
             pause(250);
 
-            insertDescription(entry.description);
+            insertDescription(entry);
             pause(250);
 
             insertCountry(entry.country);
@@ -100,8 +100,8 @@ public class Main {
         webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_isinCode\"]")).sendKeys(id);
     }
 
-    private static void insertDescription(String description) {
-        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_name\"]")).sendKeys(description);
+    private static void insertDescription(Entry entry) {
+        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_name\"]")).sendKeys(entry.description);
     }
 
     private static void insertCountry(String country) {
