@@ -3,11 +3,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.List;
+
 public class Main {
 
     public static WebDriver webDriver;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+
         //SETUP Command Prompt ->
         // chrome.exe --remote-debugging-port=9999 --user-data-dir="C:\Users\indre\IdeaProjects\taxFormFiller\chromeData"
         //SETUP navigate to emta.ee -> login -> tuludeklaratsioon
@@ -17,55 +20,48 @@ public class Main {
         ChromeOptions chromeOptions = setChromeOptions(portNumber);
         webDriver = new ChromeDriver(chromeOptions);
 
-
-
-        String id = "US02361E1082";
-        String description = "ALLIED HEALTHCARE PRODUCTS";
-        String country = "Ameerika";
-        String closingDate = "17.09.2021";
-        String closingQuantity = "21";
-
+        List<Entry> entries = Entry.getEntriesFromExcelSheet(Excel.pathName2021);
 
         addTransactionRow();
         pause(250);
-        for (int i = 0; i < 3; i++) {
+        for (Entry entry : entries) {
 
-            insertId(id);
+            insertId(entry.id);
             pause(250);
 
-            insertDescription(description);
+            insertDescription(entry.description);
             pause(250);
 
-            insertCountry(country);
+            insertCountry(entry.country);
             pause(250);
 
             insertAssetCategory();
             pause(250);
 
-            insertClosingDate(closingDate);
+            insertClosingDate(entry.closingDate);
             pause(250);
 
-            insertClosingQuantity(closingQuantity);
+            insertClosingQuantity(entry.closingQuantity);
             pause(250);
 
-            insertBuyingCost();
+            insertBuyingCost(entry.buyingCost, entry.openingDate, entry.currency);
             pause(250);
 
-            insertSellingFee();
+            insertSellingFee(entry.sellingFee, entry.closingDate, entry.currency);
             pause(250);
 
-            insertSellingCost();
+            insertSellingCost(entry.sellingCost, entry.closingDate, entry.currency);
             pause(250);
 
-            insertPaidIncomeTax();
+            insertPaidIncomeTax(entry.incomeTax, entry.closingDate, entry.currency);
             pause(250);
 
             saveTransactionRow();
             pause(1000);
         }
+
         cancelTransactionRow();
         pause(250);
-
         webDriver.quit();
     }
 
@@ -127,36 +123,32 @@ public class Main {
         webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_amount\"]")).sendKeys(quantity);
     }
 
-    private static void insertBuyingCost() {
+    private static void insertBuyingCost(String buyingCost, String openingDate, String currency) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-cost-amount-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator("215.88", "30.08.2021");
+        fillAndCloseCurrencyCalculator(buyingCost, openingDate, currency);
     }
 
-    private static void insertSellingCost() {
+    private static void insertSellingCost(String sellingCost, String closingDate, String currency) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-selling-price-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator("156,42", "17.09.2021");
+        fillAndCloseCurrencyCalculator(sellingCost, closingDate, currency);
     }
 
-    private static void insertSellingFee() {
+    private static void insertSellingFee(String sellingFee, String closingDate, String currency) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-appropriation-cost-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator("1.0", "17.09.2021");
+        fillAndCloseCurrencyCalculator(sellingFee, closingDate, currency);
     }
 
-    private static void insertPaidIncomeTax() {
+    private static void insertPaidIncomeTax(String paidIncomeTax, String date, String currency) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-income-tax-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator("0.0", "17.09.2021");
+        fillAndCloseCurrencyCalculator(paidIncomeTax, date, currency);
     }
 
-    private static void fillAndCloseCurrencyCalculator(String proceeds,
-                                                       String openDate) {
-
-        webDriver.findElement(By.xpath("//*[@id=\"currencySum\"]")).sendKeys(proceeds);
-
+    private static void fillAndCloseCurrencyCalculator(String amount, String date, String currency) {
+        webDriver.findElement(By.xpath("//*[@id=\"currencySum\"]")).sendKeys(amount);
         webDriver.findElement(By.xpath("//*[@id=\"currency\"]")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"select-user-input-element\"]")).sendKeys(currency);
         webDriver.findElement(By.xpath("//*[@id=\"currency-0\"]/span")).click();
-
-        webDriver.findElement(By.xpath("//*[@id=\"currencyDate\"]")).sendKeys(openDate);
-
+        webDriver.findElement(By.xpath("//*[@id=\"currencyDate\"]")).sendKeys(date);
         webDriver.findElement(By.xpath("//*[@id=\"currency-calculator-calculate-button\"]")).click();
     }
 
