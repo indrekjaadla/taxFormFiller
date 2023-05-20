@@ -26,7 +26,7 @@ public class Main {
         pause(250);
         for (Entry entry : entries) {
 
-            insertId(entry.id);
+            insertId(entry);
             pause(250);
 
             insertDescription(entry);
@@ -96,8 +96,8 @@ public class Main {
         webDriver.findElement(By.xpath("//*[@id=\"stockfunds-new-row-button\"]")).click();
     }
 
-    private static void insertId(String id) {
-        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_isinCode\"]")).sendKeys(id);
+    private static void insertId(Entry entry) {
+        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_isinCode\"]")).sendKeys(entry.id);
     }
 
     private static void insertDescription(Entry entry) {
