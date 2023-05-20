@@ -32,28 +32,28 @@ public class Main {
             insertDescription(entry);
             pause(250);
 
-            insertCountry(entry.country);
+            insertCountry(entry);
             pause(250);
 
             insertAssetCategory();
             pause(250);
 
-            insertClosingDate(entry.closingDate);
+            insertClosingDate(entry);
             pause(250);
 
-            insertClosingQuantity(entry.closingQuantity);
+            insertClosingQuantity(entry);
             pause(250);
 
-            insertBuyingCost(entry.buyingCost, entry.openingDate, entry.currency);
+            insertBuyingCost(entry);
             pause(250);
 
-            insertSellingFee(entry.sellingFee, entry.closingDate, entry.currency);
+            insertSellingFee(entry);
             pause(250);
 
-            insertSellingCost(entry.sellingCost, entry.closingDate, entry.currency);
+            insertSellingCost(entry);
             pause(250);
 
-            insertPaidIncomeTax(entry.incomeTax, entry.closingDate, entry.currency);
+            insertPaidIncomeTax(entry);
             pause(250);
 
             saveTransactionRow();
@@ -104,9 +104,9 @@ public class Main {
         webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_name\"]")).sendKeys(entry.description);
     }
 
-    private static void insertCountry(String country) {
+    private static void insertCountry(Entry entry) {
         webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_state\"]")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"select-user-input-element\"]")).sendKeys(country);
+        webDriver.findElement(By.xpath("//*[@id=\"select-user-input-element\"]")).sendKeys(entry.country);
         webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_state-1\"]/span")).click();
     }
 
@@ -115,32 +115,32 @@ public class Main {
         webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_type-0\"]/span")).click();
     }
 
-    private static void insertClosingDate(String closingDate) {
-        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_date\"]")).sendKeys(closingDate);
+    private static void insertClosingDate(Entry entry) {
+        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_date\"]")).sendKeys(entry.closingDate);
     }
 
-    private static void insertClosingQuantity(String quantity) {
-        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_amount\"]")).sendKeys(quantity);
+    private static void insertClosingQuantity(Entry entry) {
+        webDriver.findElement(By.xpath("//*[@id=\"add_stockfunds_amount\"]")).sendKeys(entry.closingQuantity);
     }
 
-    private static void insertBuyingCost(String buyingCost, String openingDate, String currency) {
+    private static void insertBuyingCost(Entry entry) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-cost-amount-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator(buyingCost, openingDate, currency);
+        fillAndCloseCurrencyCalculator(entry.buyingCost, entry.openingDate, entry.currency);
     }
 
-    private static void insertSellingCost(String sellingCost, String closingDate, String currency) {
+    private static void insertSellingCost(Entry entry) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-selling-price-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator(sellingCost, closingDate, currency);
+        fillAndCloseCurrencyCalculator(entry.sellingCost, entry.closingDate, entry.currency);
     }
 
-    private static void insertSellingFee(String sellingFee, String closingDate, String currency) {
+    private static void insertSellingFee(Entry entry) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-appropriation-cost-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator(sellingFee, closingDate, currency);
+        fillAndCloseCurrencyCalculator(entry.sellingFee, entry.closingDate, entry.currency);
     }
 
-    private static void insertPaidIncomeTax(String paidIncomeTax, String date, String currency) {
+    private static void insertPaidIncomeTax(Entry entry) {
         webDriver.findElement(By.xpath("//*[@id=\"add-stockfunds-income-tax-calculator-link\"]")).click();
-        fillAndCloseCurrencyCalculator(paidIncomeTax, date, currency);
+        fillAndCloseCurrencyCalculator(entry.incomeTax, entry.closingDate, entry.currency);
     }
 
     private static void fillAndCloseCurrencyCalculator(String amount, String date, String currency) {
