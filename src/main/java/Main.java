@@ -10,7 +10,7 @@ public class Main {
     public static WebDriver webDriver;
     public static final int waitAfterAdd = 1000;
     public static final int waitAfterClick = 200;
-    public static final int waitAfterSend = 500;
+    public static final int waitAfterSend = 300;
     public static final int waitBeforeSave = 500;
 
     public static void main(String[] args) {
