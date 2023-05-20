@@ -16,7 +16,6 @@ public class Excel {
     public static XSSFSheet getExcelSheet(String pathName) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(pathName);
         XSSFWorkbook workBook = new XSSFWorkbook(fileInputStream);
-        XSSFSheet sheet = workBook.getSheet(sheetName);
-        return sheet;
+        return workBook.getSheet(sheetName);
     }
 }
