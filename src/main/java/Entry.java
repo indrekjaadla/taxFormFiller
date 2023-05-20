@@ -27,8 +27,8 @@ public class Entry {
             return entries;
         } catch (Exception exception) {
             exception.printStackTrace();
+            return List.of();
         }
-        return List.of();
     }
 
     private static Entry fillEntry(Row row) {
